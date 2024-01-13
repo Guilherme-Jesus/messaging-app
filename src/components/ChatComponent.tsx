@@ -61,14 +61,9 @@ const ChatComponent = () => {
   }
 
   return (
-    <div className='flex flex-col h-screen bg-gray-100'>
-      <div className='flex items-center justify-between p-4 border-b border-gray-200'>
-        <h2 className='text-2xl font-bold text-center py-4 sticky top-0'>
-          Bora conversar?
-          <span role='img' aria-label='Chat' className='ml-2'>
-            💬
-          </span>
-        </h2>
+    <div className='flex flex-col h-full bg-gray-100'>
+      <div className='sticky top-0 bg-white p-4 border-b border-gray-200 flex justify-between items-center'>
+        <h2 className='text-2xl font-bold text-center'>Bora conversar? 💬</h2>
         <button
           onClick={handleLogout}
           className='bg-red-500 hover:bg-red-600 text-white rounded px-4 py-2'
@@ -76,7 +71,7 @@ const ChatComponent = () => {
           Sair
         </button>
       </div>
-      <div className='flex-1 overflow-y-auto p-4 bg-gray-400'>
+      <div className='flex-1 overflow-y-auto p-4'>
         {messages?.map((msg, index) => (
           <div
             key={index}
@@ -98,7 +93,7 @@ const ChatComponent = () => {
         ))}
         <div ref={endOfMessagesRef} />
       </div>
-      <div className='p-4 border-t border-gray-200 sticky bottom-0 bg-white'>
+      <div className='sticky bottom-0 p-4 border-t border-gray-200 bg-white'>
         <div className='flex gap-2'>
           <input
             type='text'
