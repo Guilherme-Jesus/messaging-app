@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { useGetMessagesQuery } from '../services/chatApi'
-import { useAppDispatch, useAppSelector } from '../store/hooks'
+import { AiOutlineWechat } from 'react-icons/ai'
+import { useNavigate } from 'react-router-dom'
 import { auth } from '../config/firebase-config'
 import { setAuthing } from '../reducers/authSlice'
-import { useNavigate } from 'react-router-dom'
+import { useGetMessagesQuery } from '../services/chatApi'
+import { useAppDispatch, useAppSelector } from '../store/hooks'
 
 const ChatComponent = () => {
   const { user } = useAppSelector((state) => state.auth)
@@ -38,7 +39,7 @@ const ChatComponent = () => {
 
   const sendMessage = useCallback(() => {
     if (message && ws.current && ws.current.readyState === WebSocket.OPEN) {
-      const messageData = { sender: user?.email, content: message }
+      const messageData = { sender: user?.displayName, content: message }
       ws.current.send(JSON.stringify(messageData))
       setMessage('')
     }
@@ -61,29 +62,30 @@ const ChatComponent = () => {
   }
 
   return (
-    <div className='flex flex-col h-full bg-gray-100'>
-      <div className='sticky top-0 bg-white p-4 border-b border-gray-200 flex justify-between items-center'>
-        <h2 className='text-2xl font-bold text-center'>Bora conversar? 💬</h2>
+    <div className='flex flex-col h-screen bg-gray-100'>
+      <div className='sticky top-0 bg-white p-4 border-b border-gray-300 flex justify-between items-center shadow-md'>
+        <h2 className='text-2xl font-bold text-blue-600'>
+          Bora conversar?
+          <AiOutlineWechat className='w-8 h-8 inline-block ml-2' />
+        </h2>
         <button
           onClick={handleLogout}
-          className='bg-red-500 hover:bg-red-600 text-white rounded px-4 py-2'
+          className='bg-red-500 hover:bg-red-600 text-white rounded-xl px-4 py-2 shadow'
         >
           Sair
         </button>
       </div>
-      <div className='flex-1 overflow-y-auto p-4'>
+      <div className='flex-1 overflow-y-auto p-4 space-y-2'>
         {messages?.map((msg, index) => (
           <div
             key={index}
-            className={`flex items-end mb-1 ${
-              msg.sender === user?.email ? 'justify-end' : 'justify-start'
-            }`}
+            className={`flex mb-1 ${msg.sender === user?.displayName ? 'justify-end' : 'justify-start'}`}
           >
             <p
-              className={`rounded px-4 py-2 ${
-                msg.sender === user?.email
+              className={`rounded px-4 py-2 max-w-xs lg:max-w-md ${
+                msg.sender === user?.displayName
                   ? 'bg-blue-500 text-white'
-                  : 'bg-gray-200'
+                  : 'bg-gray-200 text-gray-800'
               }`}
             >
               <strong>{msg.sender}:</strong>
@@ -94,18 +96,18 @@ const ChatComponent = () => {
         <div ref={endOfMessagesRef} />
       </div>
       <div className='sticky bottom-0 p-4 border-t border-gray-200 bg-white'>
-        <div className='flex gap-2'>
+        <div className='flex gap-4'>
           <input
             type='text'
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder='Digite uma mensagem'
-            className='flex-1 p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500'
+            className='flex-1 p-1 border rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-300 shadow-md'
           />
           <button
             onClick={sendMessage}
-            className='bg-blue-500 hover:bg-blue-600 text-white rounded px-4 py-2'
+            className='bg-purple-500 hover:bg-purple-600 text-white rounded-xl px-4 py-2 shadow'
           >
             Enviar
           </button>

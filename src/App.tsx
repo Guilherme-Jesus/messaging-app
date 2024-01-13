@@ -1,12 +1,15 @@
-import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom'
-import LoginComponent from './components/login'
-import ChatComponent from './components/ChatComponent'
 import { ReactElement } from 'react'
+import { FaSpinner } from 'react-icons/fa'
+import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom'
+import ChatComponent from './components/ChatComponent'
+import LoginComponent from './components/login'
+import RegisterComponent from './components/register'
 import useAuth from './hooks/useAuth'
 
 // Rotas públicas
 const publicRoutes = [
   { path: '/login', element: <LoginComponent /> },
+  { path: '/register', element: <RegisterComponent /> }, // Adicione esta linha
   { path: '*', element: <Navigate to='/login' replace /> },
 ]
 
@@ -25,18 +28,16 @@ export const App = (): ReactElement => {
 
   const { user, isLoading } = useAuth()
 
-  if (isLoading)
-    return (
-      <div className='flex items-center justify-center min-h-screen py-12 px-4 sm:px-6 lg:px-8'>
-        Carregando...
-      </div>
-    )
-
   const router = user !== null ? privateRouter : publicRouter
 
   return (
     <main className='w-full'>
-      <RouterProvider router={router} />
+      {isLoading && (
+        <div className='absolute inset-0 flex items-center justify-center bg-gray-400 bg-opacity-60 dark:bg-gray-900 dark:bg-opacity-60'>
+          <FaSpinner className='w-10 h-10 text-indigo-500 animate-spin' />
+        </div>
+      )}
+      {!isLoading && <RouterProvider router={router} />}
     </main>
   )
 }

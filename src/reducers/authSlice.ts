@@ -1,6 +1,6 @@
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
-import { loginUser } from '../services/auth-api'
+import { loginUser, registerUser } from '../services/auth-api'
 
 export interface IUserFirebase {
   displayName: string | null
@@ -74,6 +74,19 @@ const authSlice = createSlice({
       state.user = action.payload
     })
     builder.addCase(loginUser.rejected, (state, action) => {
+      state.authing = false
+      state.errorMessage = action.payload as string
+    })
+
+    builder.addCase(registerUser.pending, (state) => {
+      state.authing = true
+    })
+    builder.addCase(registerUser.fulfilled, (state, action) => {
+      state.authing = false
+      state.user = action.payload
+    })
+
+    builder.addCase(registerUser.rejected, (state, action) => {
       state.authing = false
       state.errorMessage = action.payload as string
     })
