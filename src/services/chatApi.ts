@@ -3,6 +3,8 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 interface Message {
   sender: string
   content: string
+  timestamp: string
+  photoURL: string
 }
 
 export const chatApi = createApi({

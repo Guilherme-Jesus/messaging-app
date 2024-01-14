@@ -29,7 +29,12 @@ const ChatComponent = () => {
 
   const handleSendMessage = useCallback(() => {
     if (message) {
-      sendMessage({ sender: String(user?.displayName), content: message })
+      sendMessage({
+        sender: String(user?.displayName),
+        content: message,
+        photoURL: String(user?.photoURL),
+        timestamp: new Date().toISOString(),
+      })
       setMessage('')
     }
   }, [message, sendMessage, user?.displayName])
@@ -72,9 +77,9 @@ const ChatComponent = () => {
             className={`flex ${msg.sender === user?.displayName ? 'justify-end' : ''}`}
           >
             <AvatarComponent
-              src={user?.photoURL}
+              src={msg.photoURL}
               alt={msg.sender}
-              fallbackText={msg.sender?.[0]}
+              fallbackText={msg.sender}
             />
             <div
               className={`flex flex-col ml-2 max-w-xs lg:max-w-md break-words ${msg.sender === user?.displayName ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800'} rounded-lg px-4 py-2 shadow`}
