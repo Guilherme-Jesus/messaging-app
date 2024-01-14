@@ -50,35 +50,35 @@ const RegisterComponent = () => {
     })
   }
   return (
-    <div className='flex flex-col md:flex-row min-h-screen'>
-      <div className='md:w-1/2 flex'>
+    <div className='flex min-h-screen flex-col md:flex-row'>
+      <div className='flex md:w-1/2'>
         <img
           src={networkPeople}
           alt='Network People'
-          className='w-full h-auto object-cover md:h-full'
+          className='h-auto w-full object-cover md:h-full'
         />
       </div>
-      <div className='flex flex-1 items-center justify-center p-4 md:w-1/2 bg-gradient-to-r from-blue-200 to-[#240C4A] text-white'>
+      <div className='flex flex-1 items-center justify-center bg-gradient-to-r from-blue-200 to-[#240C4A] p-4 text-white md:w-1/2'>
         {isLoading ? (
           <div className='absolute inset-0 flex items-center justify-center bg-gray-400 bg-opacity-60 dark:bg-gray-900 dark:bg-opacity-60'>
-            <FaSpinner className='w-10 h-10 text-indigo-500 animate-spin' />
+            <FaSpinner className='h-10 w-10 animate-spin text-indigo-500' />
           </div>
         ) : (
           <form
-            className='max-w-sm w-full space-y-5
+            className='w-full max-w-sm space-y-5
         '
             onSubmit={handleRegister}
           >
-            <div className='max-w-sm w-full'>
-              <h1 className='text-2xl font-medium mb-6'>
+            <div className='w-full max-w-sm'>
+              <h1 className='mb-6 text-2xl font-medium'>
                 Crie sua conta no FarpasChat
-                <AiOutlineWechat className='w-8 h-8 inline-block ml-2' />
+                <AiOutlineWechat className='ml-2 inline-block h-8 w-8' />
               </h1>
             </div>
             <div className='mb-5'>
               <label
                 htmlFor='email'
-                className='block mb-2 text-sm font-medium text-gray-900 dark:text-black'
+                className='mb-2 block text-sm font-medium text-gray-900 dark:text-black'
               >
                 Email
               </label>
@@ -87,7 +87,7 @@ const RegisterComponent = () => {
                 id='email'
                 value={email}
                 onChange={handleEmailChange}
-                className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500'
                 placeholder='Digite seu email'
                 required
               />
@@ -95,7 +95,7 @@ const RegisterComponent = () => {
             <div className='mb-5'>
               <label
                 htmlFor='password'
-                className='block mb-2 text-sm font-medium text-gray-900 dark:text-black'
+                className='mb-2 block text-sm font-medium text-gray-900 dark:text-black'
               >
                 Senha
               </label>
@@ -105,14 +105,14 @@ const RegisterComponent = () => {
                 placeholder='Digite sua senha'
                 value={password}
                 onChange={handlePasswordChange}
-                className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500'
                 required
               />
             </div>
             <div className='mb-5'>
               <label
                 htmlFor='username'
-                className='block mb-2 text-sm font-medium text-gray-900 dark:text-black'
+                className='mb-2 block text-sm font-medium text-gray-900 dark:text-black'
               >
                 Nome de Usuário
               </label>
@@ -122,14 +122,14 @@ const RegisterComponent = () => {
                 placeholder='Digite seu nome de usuário'
                 value={username}
                 onChange={handleUsernameChange}
-                className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500'
                 required
               />
             </div>
             <div className='mb-5'>
               <label
                 htmlFor='file'
-                className='block mb-2 text-sm font-medium text-gray-900 dark:text-black'
+                className='mb-2 block text-sm font-medium text-gray-900 dark:text-black'
               >
                 Foto de Perfil
               </label>
@@ -137,20 +137,20 @@ const RegisterComponent = () => {
                 type='file'
                 id='file'
                 onChange={handleFileChange}
-                className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500'
               />
             </div>
             <div className=' mb-5 flex flex-col gap-2'>
               <button
                 type='submit'
-                className='text-blue-700 hover:text-[#240C4A] font-medium bg-purple-100 hover:bg-purple-200 rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center'
+                className='w-full rounded-lg bg-purple-100 px-5 py-2.5 text-center text-sm font-medium text-blue-700 hover:bg-purple-200 hover:text-[#240C4A] sm:w-auto'
               >
                 Cadastrar
               </button>
               <button
                 type='button'
                 onClick={() => navigate('/login')}
-                className='text-blue-700 hover:text-[#240C4A] font-medium bg-purple-100 hover:bg-purple-200 rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center'
+                className='w-full rounded-lg bg-purple-100 px-5 py-2.5 text-center text-sm font-medium text-blue-700 hover:bg-purple-200 hover:text-[#240C4A] sm:w-auto'
               >
                 Voltar para Login
               </button>

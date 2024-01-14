@@ -26,26 +26,26 @@ const LoginComponent: React.FC = () => {
   }
 
   return (
-    <div className='flex flex-col md:flex-row min-h-screen'>
-      <div className='md:w-1/2 flex'>
+    <div className='flex min-h-screen flex-col md:flex-row'>
+      <div className='flex md:w-1/2'>
         <img
           src={networkPeople}
           alt='Network People'
-          className='w-full h-auto object-cover md:h-full'
+          className='h-auto w-full object-cover md:h-full'
         />
       </div>
-      <div className='flex flex-1 items-center justify-center p-4 md:w-1/2 bg-gradient-to-r from-blue-200 to-[#240C4A] text-white'>
-        <form className='max-w-sm w-full space-y-5' onSubmit={handleSubmit}>
-          <div className='max-w-sm w-full align-center justify-center'>
-            <h1 className='text-2xl font-medium text-center'>
+      <div className='flex flex-1 items-center justify-center bg-gradient-to-r from-blue-200 to-[#240C4A] p-4 text-white md:w-1/2'>
+        <form className='w-full max-w-sm space-y-5' onSubmit={handleSubmit}>
+          <div className='align-center w-full max-w-sm justify-center'>
+            <h1 className='text-center text-2xl font-medium'>
               FarpasChat
-              <AiOutlineWechat className='w-8 h-8 inline-block ml-2' />
+              <AiOutlineWechat className='ml-2 inline-block h-8 w-8' />
             </h1>
           </div>
           <div className='mb-5'>
             <label
               htmlFor='email'
-              className='block mb-2 text-sm font-medium text-gray-900 dark:text-black'
+              className='mb-2 block text-sm font-medium text-gray-900 dark:text-black'
             >
               Email
             </label>
@@ -54,7 +54,7 @@ const LoginComponent: React.FC = () => {
               id='email'
               value={email}
               onChange={handleEmail}
-              className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+              className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500'
               placeholder='Digite seu email'
               required
             />
@@ -62,7 +62,7 @@ const LoginComponent: React.FC = () => {
           <div className='mb-5'>
             <label
               htmlFor='password'
-              className='block mb-2 text-sm font-medium text-gray-900 dark:text-black'
+              className='mb-2 block text-sm font-medium text-gray-900 dark:text-black'
             >
               Senha
             </label>
@@ -72,14 +72,14 @@ const LoginComponent: React.FC = () => {
               placeholder='Digite sua senha'
               value={password}
               onChange={handlePassword}
-              className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+              className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500'
               required
             />
           </div>
-          <div className=' mb-5 flex flex-col gap-2 items-center justify-center'>
+          <div className=' mb-5 flex flex-col items-center justify-center gap-2'>
             <button
               type='submit'
-              className='text-blue-700 hover:text-[#240C4A] font-medium bg-purple-100 hover:bg-purple-200 rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center'
+              className='w-full rounded-lg bg-purple-100 px-5 py-2.5 text-center text-sm font-medium text-blue-700 hover:bg-purple-200 hover:text-[#240C4A] sm:w-auto'
             >
               Entrar
             </button>
@@ -87,9 +87,9 @@ const LoginComponent: React.FC = () => {
               Não tem uma conta?
               <button
                 onClick={() => navigate('/register')}
-                className='text-purple-700 hover:text-purple-800 font-medium'
+                className='font-medium text-purple-700 hover:text-purple-800'
               >
-                <span className='text-white hover:text-purple-800 font-medium ml-1'>
+                <span className='ml-1 font-medium text-white hover:text-purple-800'>
                   Registre-se aqui
                 </span>
               </button>

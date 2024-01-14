@@ -34,7 +34,7 @@ export const App = (): ReactElement => {
     <main className='w-full'>
       {isLoading && (
         <div className='absolute inset-0 flex items-center justify-center bg-gray-400 bg-opacity-60 dark:bg-gray-900 dark:bg-opacity-60'>
-          <FaSpinner className='w-10 h-10 text-indigo-500 animate-spin' />
+          <FaSpinner className='h-10 w-10 animate-spin text-indigo-500' />
         </div>
       )}
       {!isLoading && <RouterProvider router={router} />}
