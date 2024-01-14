@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 interface Message {
-  sender?: string | null
+  sender: string
   content: string
 }
 

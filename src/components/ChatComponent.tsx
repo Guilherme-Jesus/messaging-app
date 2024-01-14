@@ -8,6 +8,7 @@ import {
   useSendMessageMutation,
 } from '../services/chatApi'
 import { useAppDispatch, useAppSelector } from '../store/hooks'
+import AvatarComponent from './avatar' // Importe o AvatarComponent
 
 const ChatComponent = () => {
   const { user } = useAppSelector((state) => state.auth)
@@ -28,7 +29,7 @@ const ChatComponent = () => {
 
   const handleSendMessage = useCallback(() => {
     if (message) {
-      sendMessage({ sender: user?.displayName, content: message })
+      sendMessage({ sender: String(user?.displayName), content: message })
       setMessage('')
     }
   }, [message, sendMessage, user?.displayName])
@@ -64,22 +65,23 @@ const ChatComponent = () => {
           Sair
         </button>
       </div>
-      <div className='flex-1 overflow-y-auto p-4 space-y-2'>
+      <div className='flex-1 overflow-y-auto p-4 space-y-4'>
         {messages?.map((msg, index) => (
           <div
             key={index}
-            className={`flex mb-1 ${msg.sender === user?.displayName ? 'justify-end' : 'justify-start'}`}
+            className={`flex ${msg.sender === user?.displayName ? 'justify-end' : ''}`}
           >
-            <p
-              className={`rounded px-4 py-2 max-w-xs lg:max-w-md ${
-                msg.sender === user?.displayName
-                  ? 'bg-blue-500 text-white'
-                  : 'bg-gray-200 text-gray-800'
-              }`}
+            <AvatarComponent
+              src={user?.photoURL}
+              alt={msg.sender}
+              fallbackText={msg.sender?.[0]}
+            />
+            <div
+              className={`flex flex-col ml-2 max-w-xs lg:max-w-md break-words ${msg.sender === user?.displayName ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800'} rounded-lg px-4 py-2 shadow`}
             >
-              <strong>{msg.sender}:</strong>
-              <span className='ml-2'>{msg.content}</span>
-            </p>
+              <div className='text-xs font-bold'>{msg.sender}</div>
+              <div className='text-sm'>{msg.content}</div>
+            </div>
           </div>
         ))}
         <div ref={endOfMessagesRef} />
