@@ -1,16 +1,16 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 interface Message {
-  sender: string
+  sender?: string | null
   content: string
 }
 
 export const chatApi = createApi({
   reducerPath: 'chatApi',
-  baseQuery: fetchBaseQuery({ baseUrl: '/' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://messagin.onrender.com/' }),
   endpoints: (builder) => ({
     getMessages: builder.query<Message[], void>({
-      queryFn: () => ({ data: [] }), // Sem operação de fetch real
+      queryFn: () => ({ data: [] }),
       async onCacheEntryAdded(
         _,
         { updateCachedData, cacheDataLoaded, cacheEntryRemoved }
@@ -27,14 +27,21 @@ export const chatApi = createApi({
             })
           }
         } catch {
-          // Tratamento de erros aqui
+          ws.close()
         }
 
         await cacheEntryRemoved
         ws.close()
       },
     }),
+    sendMessage: builder.mutation<void, Message>({
+      query: (message) => ({
+        url: '/send-message',
+        method: 'POST',
+        body: message,
+      }),
+    }),
   }),
 })
 
-export const { useGetMessagesQuery } = chatApi
+export const { useGetMessagesQuery, useSendMessageMutation } = chatApi

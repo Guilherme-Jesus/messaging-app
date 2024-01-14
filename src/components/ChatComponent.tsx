@@ -3,7 +3,10 @@ import { AiOutlineWechat } from 'react-icons/ai'
 import { useNavigate } from 'react-router-dom'
 import { auth } from '../config/firebase-config'
 import { setAuthing } from '../reducers/authSlice'
-import { useGetMessagesQuery } from '../services/chatApi'
+import {
+  useGetMessagesQuery,
+  useSendMessageMutation,
+} from '../services/chatApi'
 import { useAppDispatch, useAppSelector } from '../store/hooks'
 
 const ChatComponent = () => {
@@ -13,53 +16,39 @@ const ChatComponent = () => {
   const navigate = useNavigate()
 
   const [message, setMessage] = useState('')
-  const ws = useRef<WebSocket | null>(null)
 
   const { data: messages } = useGetMessagesQuery()
+  const [sendMessage] = useSendMessageMutation()
+
   const endOfMessagesRef = useRef<HTMLDivElement>(null)
-
-  const initWebSocket = useCallback(() => {
-    ws.current = new WebSocket('wss://messagin.onrender.com/')
-    ws.current.onclose = () => {
-      console.log('WebSocket closed. Reconnecting...')
-      setTimeout(initWebSocket, 1000) // Tentar reconectar após 1 segundo
-    }
-  }, [])
-
-  useEffect(() => {
-    initWebSocket()
-    return () => {
-      ws.current?.close()
-    }
-  }, [initWebSocket])
 
   useEffect(() => {
     endOfMessagesRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
 
-  const sendMessage = useCallback(() => {
-    if (message && ws.current && ws.current.readyState === WebSocket.OPEN) {
-      const messageData = { sender: user?.displayName, content: message }
-      ws.current.send(JSON.stringify(messageData))
+  const handleSendMessage = useCallback(() => {
+    if (message) {
+      sendMessage({ sender: user?.displayName, content: message })
       setMessage('')
     }
-  }, [message, user?.displayName])
+  }, [message, sendMessage, user?.displayName])
 
   const handleKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
       if (event.key === 'Enter') {
         event.preventDefault()
-        sendMessage()
+        handleSendMessage()
       }
     },
-    [sendMessage]
+    [handleSendMessage]
   )
-  const handleLogout = (): void => {
+
+  const handleLogout = useCallback(() => {
     auth.signOut().then(() => {
       dispatch(setAuthing(false))
       navigate('/login')
     })
-  }
+  }, [dispatch, navigate])
 
   return (
     <div className='flex flex-col h-screen bg-gray-100'>
@@ -106,7 +95,7 @@ const ChatComponent = () => {
             className='flex-1 p-1 border rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-300 shadow-md'
           />
           <button
-            onClick={sendMessage}
+            onClick={handleSendMessage}
             className='bg-purple-500 hover:bg-purple-600 text-white rounded-xl px-4 py-2 shadow'
           >
             Enviar
