@@ -9,7 +9,9 @@ interface Message {
 
 export const chatApi = createApi({
   reducerPath: 'chatApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://messagin.onrender.com/' }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: 'https://hammerhead-app-pfotz.ondigitalocean.app',
+  }),
   endpoints: (builder) => ({
     getMessages: builder.query<Message[], void>({
       queryFn: () => ({ data: [] }),
@@ -17,7 +19,9 @@ export const chatApi = createApi({
         _,
         { updateCachedData, cacheDataLoaded, cacheEntryRemoved }
       ) {
-        const ws = new WebSocket('wss://messagin.onrender.com/')
+        const ws = new WebSocket(
+          'wss://hammerhead-app-pfotz.ondigitalocean.app'
+        )
 
         try {
           await cacheDataLoaded
